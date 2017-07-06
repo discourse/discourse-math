@@ -31,12 +31,13 @@ describe PrettyText do
     end
 
     it 'can handle inline edge cases' do
+      expect(PrettyText.cook ",$+500\\$").not_to include('math')
+      expect(PrettyText.cook "$+500$").to include('math')
       expect(PrettyText.cook ",$+500$,").to include('math')
       expect(PrettyText.cook "200$ + 500$").not_to include('math')
-      expect(PrettyText.cook ",$+500\$x").not_to include('math')
-      expect(PrettyText.cook "y$+500\$").not_to include('math')
+      expect(PrettyText.cook ",$+500$x").not_to include('math')
+      expect(PrettyText.cook "y$+500$").not_to include('math')
       expect(PrettyText.cook "($ +500 $)").to include('math')
-      expect(PrettyText.cook ",$+500\$").not_to include('math')
     end
 
     it 'can handle inline math' do

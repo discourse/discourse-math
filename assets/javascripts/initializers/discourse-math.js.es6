@@ -24,6 +24,12 @@ function ensureMathJax(){
 
 function decorate(elem, isPreview){
   const $elem= $(elem);
+
+  if ($elem.data('applied-mathjax')){
+    return;
+  }
+  $elem.data('applied-mathjax', true);
+
   const tag = elem.tagName === "DIV" ? "div" : "span";
   const display = tag === "div" ? "; mode=display" : "";
 
@@ -36,7 +42,7 @@ function decorate(elem, isPreview){
   Em.run.later(this, ()=> {
     window.MathJax.Hub.Queue(() => {
       // don't bother processing previews removed from DOM
-      if (elem.parentElement.offsetParent !== null) {
+      if (elem.parentElement && elem.parentElement.offsetParent !== null) {
         window.MathJax.Hub.Typeset($math[0], ()=> {
           $elem.remove();
           $mathWrapper.show();
@@ -51,6 +57,7 @@ function mathjax($elem) {
 
   if (mathElems.length > 0) {
     const isPreview = $elem.hasClass('d-editor-preview');
+
     ensureMathJax().then(()=>{
       mathElems.each((idx,elem) => decorate(elem, isPreview));
     });

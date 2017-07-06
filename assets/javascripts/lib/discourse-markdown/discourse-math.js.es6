@@ -59,7 +59,7 @@ function inlineMath(state, silent) {
 
   if (found+1 <= posMax) {
     let next = state.src.charCodeAt(found+1);
-    if (!isSafeBoundary(next, state.md)) {
+    if (next && !isSafeBoundary(next, state.md)) {
       return false;
     }
   }
