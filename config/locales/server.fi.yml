@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
 
-en:
+fi:
   site_settings:
     discourse_math_enabled: 'Ota käyttöön Discoursen matematiikkalisäosa ($ ja $$ blokit käsitellään erityisellä tavalla)'
