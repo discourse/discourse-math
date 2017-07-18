@@ -4,13 +4,12 @@ describe PrettyText do
 
   context 'markdown it' do
     before do
-      SiteSetting.enable_experimental_markdown_it = true
       SiteSetting.discourse_math_enabled = true
     end
 
     it 'can handle inline math' do
-      cooked = PrettyText.cook('I like $\{a,b\}\$<a>$ etc..')
-      html = '<p>I like <span class="math">\{a,b\}\$&lt;a&gt;</span> etc..</p>'
+      cooked = PrettyText.cook('I like $\{a,b\}\$<a>$ etc')
+      html = '<p>I like <span class="math">\{a,b\}\$&lt;a&gt;</span> etc</p>'
       expect(cooked).to eq(html)
     end
 
@@ -46,7 +45,7 @@ describe PrettyText do
         $$
         \{a,b\}\$<a>
         $$
-        etc..
+        etc
       MD
 
       html = <<~HTML
@@ -54,7 +53,7 @@ describe PrettyText do
         <div class="math">
         {a,b}$&lt;a&gt;
         </div>
-        <p>etc..</p>
+        <p>etc</p>
       HTML
 
       expect(cooked).to eq(html.strip)
