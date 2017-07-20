@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
 
-en:
+es:
   site_settings:
     discourse_math_enabled: 'Habilitar plugin Discourse Math (agregará procesamiento especial para los bloques con $ y $$)'
