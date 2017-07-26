@@ -2,3 +2,6 @@ plugins:
   discourse_math_enabled:
     default: false
     client: true
+  discourse_math_zoom_on_click:
+    default: false
+    client: true
