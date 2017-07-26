@@ -3,17 +3,28 @@ import loadScript from 'discourse/lib/load-script';
 
 let initializedMathJax = false;
 
+// The site settings are grabbed in the exported initialize function.
+// I'm not sure what the best way to make that variable available to the
+// other functions in the file. I decided to introduce a variable that's
+// local to this file but available accross the file. I'm curious if there's
+// a better approach?
+// Mark McClure, while adding a zoom on click option.
+let file_site_settings;
+
 function initMathJax() {
   if (initializedMathJax) { return; }
 
-  window.MathJax = {
+  var settings = {
     jax: ['input/TeX', 'input/AsciiMath', 'input/MathML', 'output/CommonHTML'],
     TeX: {extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"]},
     extensions: ["toMathML.js"],
     showProcessingMessages: false,
     root: '/plugins/discourse-math/mathjax'
-  };
-
+  }
+  if(file_site_settings.discourse_math_zoom_on_click) {
+    settings.menuSettings = {zoom:"Click",zscale:"200%"}
+  }
+  window.MathJax = settings;
   initializedMathJax = true;
 }
 
@@ -72,6 +83,7 @@ export default {
   name: "apply-math",
   initialize(container) {
     const siteSettings = container.lookup('site-settings:main');
+    file_site_settings = siteSettings;
     if (siteSettings.discourse_math_enabled) {
       withPluginApi('0.5', initializeMath);
     }
