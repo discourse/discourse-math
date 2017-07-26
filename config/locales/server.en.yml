@@ -4,3 +4,4 @@
 en:
   site_settings:
     discourse_math_enabled: 'Enable Discourse Math plugin (will add special processing to $ and $$ blocks)'
+    discourse_math_zoom_on_click: 'Zoom 200% on click'
