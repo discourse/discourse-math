@@ -4,4 +4,5 @@
 es:
   site_settings:
     discourse_math_enabled: 'Habilitar plugin Discourse Math (agregará procesamiento especial para los bloques con $ y $$)'
-    discourse_math_zoom_on_click: 'Zoom 200% en el clic'
+    discourse_math_zoom_on_hover: 'Zoom 200% en hover'
+    discourse_math_enable_accessibility: 'Habilitar las funciones de accesibilidad'
