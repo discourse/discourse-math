@@ -2,27 +2,25 @@ import { withPluginApi } from 'discourse/lib/plugin-api';
 import loadScript from 'discourse/lib/load-script';
 
 let initializedMathJax = false;
-
-// The site settings are grabbed in the exported initialize function.
-// I'm not sure what the best way to make that variable available to the
-// other functions in the file. I decided to introduce a variable that's
-// local to this file but available accross the file. I'm curious if there's
-// a better approach?
-// Mark McClure, while adding a zoom on click option.
-let file_site_settings;
+let zoom_on_hover, enable_accessibility;
 
 function initMathJax() {
   if (initializedMathJax) { return; }
 
+  var extensions = ["toMathML.js", "Safe.js"];
+  if(enable_accessibility) {
+    extensions.push("[a11y]/accessibility-menu.js")
+  }
   var settings = {
     jax: ['input/TeX', 'input/AsciiMath', 'input/MathML', 'output/CommonHTML'],
     TeX: {extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"]},
-    extensions: ["toMathML.js"],
+    extensions: extensions,
     showProcessingMessages: false,
     root: '/plugins/discourse-math/mathjax'
   }
-  if(file_site_settings.discourse_math_zoom_on_click) {
-    settings.menuSettings = {zoom:"Click",zscale:"200%"}
+  if(zoom_on_hover) {
+    settings.menuSettings = {zoom: "Hover"};
+    settings.MathEvents = {hover: 750};
   }
   window.MathJax = settings;
   initializedMathJax = true;
@@ -83,7 +81,8 @@ export default {
   name: "apply-math",
   initialize(container) {
     const siteSettings = container.lookup('site-settings:main');
-    file_site_settings = siteSettings;
+    zoom_on_hover = siteSettings.discourse_math_zoom_on_hover;
+    enable_accessibility = siteSettings.discourse_math_enable_accessibility;
     if (siteSettings.discourse_math_enabled) {
       withPluginApi('0.5', initializeMath);
     }
