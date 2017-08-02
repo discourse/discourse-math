@@ -8,16 +8,19 @@ function initMathJax() {
   if (initializedMathJax) { return; }
 
   var extensions = ["toMathML.js", "Safe.js"];
-  if(enable_accessibility) {
-    extensions.push("[a11y]/accessibility-menu.js")
+  
+  if (enable_accessibility) {
+    extensions.push("[a11y]/accessibility-menu.js");
   }
+
   var settings = {
     jax: ['input/TeX', 'input/AsciiMath', 'input/MathML', 'output/CommonHTML'],
     TeX: {extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"]},
     extensions: extensions,
     showProcessingMessages: false,
     root: '/plugins/discourse-math/mathjax'
-  }
+  };
+
   if(zoom_on_hover) {
     settings.menuSettings = {zoom: "Hover"};
     settings.MathEvents = {hover: 750};
