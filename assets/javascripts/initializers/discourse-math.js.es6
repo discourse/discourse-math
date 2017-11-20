@@ -8,7 +8,7 @@ function initMathJax() {
   if (initializedMathJax) { return; }
 
   var extensions = ["toMathML.js", "Safe.js"];
-  
+
   if (enable_accessibility) {
     extensions.push("[a11y]/accessibility-menu.js");
   }
@@ -65,6 +65,11 @@ function decorate(elem, isPreview){
 }
 
 function mathjax($elem) {
+
+  if (!$elem || !$elem.find) {
+    return;
+  }
+
   const mathElems = $elem.find('.math');
 
   if (mathElems.length > 0) {
