@@ -5,4 +5,8 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-de: {}
+de:
+  site_settings:
+    discourse_math_enabled: 'Aktiviere das Discourse-Mathematik-Plugin (fügt spezielle Bearbeitungsschritte für $- und $$-Blöcke hinzu)'
+    discourse_math_zoom_on_hover: 'Zoom auf 200% beim Überfahren mit der Maus'
+    discourse_math_enable_accessibility: 'Aktiviere Barrierefreiheit-Funktionen'

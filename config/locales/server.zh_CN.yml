@@ -5,4 +5,8 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-zh_CN: {}
+zh_CN:
+  site_settings:
+    discourse_math_enabled: '启用 Discourse 数学插件（将对 $ 和 $$ 进行特殊处理）'
+    discourse_math_zoom_on_hover: '鼠标浮动时放大至 200%'
+    discourse_math_enable_accessibility: '启用可操作性特性'
