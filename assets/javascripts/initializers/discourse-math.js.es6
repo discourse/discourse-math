@@ -42,14 +42,22 @@ function decorate(elem, isPreview){
   }
   $elem.data('applied-mathjax', true);
 
-  const tag = elem.tagName === "DIV" ? "div" : "span";
-  const display = tag === "div" ? "; mode=display" : "";
-
-  const $mathWrapper = $(`<${tag} style="display: none;"><script type="math/tex${display}"></script></${tag}>`);
-  const $math = $mathWrapper.children();
-
-  $math.html($elem.text());
-  $elem.after($mathWrapper);
+  if($elem.hasClass('math')) {
+    const tag = elem.tagName === "DIV" ? "div" : "span";
+    const display = tag === "div" ? "; mode=display" : "";
+    var $mathWrapper = $(`<${tag} style="display: none;"><script type="math/tex${display}"></script></${tag}>`);
+    var $math = $mathWrapper.children();
+    $math.html($elem.text());
+    $elem.after($mathWrapper);
+  }
+  else if($elem.hasClass('asciimath')) {
+    // const tag = elem.tagName === "DIV" ? "div" : "span";
+    // const display = tag === "div" ? "; mode=display" : "";
+    var $mathWrapper = $(`<span style="display: none;"><script type="math/asciimath"></script></span>`);
+    var $math = $mathWrapper.children();
+    $math.html($elem.text());
+    $elem.after($mathWrapper);
+  }
 
   Em.run.later(this, ()=> {
     window.MathJax.Hub.Queue(() => {
@@ -70,7 +78,7 @@ function mathjax($elem) {
     return;
   }
 
-  const mathElems = $elem.find('.math');
+  const mathElems = $elem.find('.math, .asciimath');
 
   if (mathElems.length > 0) {
     const isPreview = $elem.hasClass('d-editor-preview');
@@ -79,6 +87,24 @@ function mathjax($elem) {
       mathElems.each((idx,elem) => decorate(elem, isPreview));
     });
   }
+}
+
+function findProperties(obj) {
+    var aPropertiesAndMethods = [];
+
+    do {
+        aPropertiesAndMethods = aPropertiesAndMethods.concat(Object.getOwnPropertyNames(obj));
+    } while (obj = Object.getPrototypeOf(obj));
+
+    for ( var a = 0; a < aPropertiesAndMethods.length; ++a) {
+        for ( var b = a + 1; b < aPropertiesAndMethods.length; ++b) {
+            if (aPropertiesAndMethods[a] === aPropertiesAndMethods[b]) {
+                aPropertiesAndMethods.splice(a--, 1);
+            }
+        }
+    }
+
+    return aPropertiesAndMethods;
 }
 
 function initializeMath(api) {
