@@ -51,8 +51,6 @@ function decorate(elem, isPreview){
     $elem.after($mathWrapper);
   }
   else if($elem.hasClass('asciimath')) {
-    // const tag = elem.tagName === "DIV" ? "div" : "span";
-    // const display = tag === "div" ? "; mode=display" : "";
     var $mathWrapper = $(`<span style="display: none;"><script type="math/asciimath"></script></span>`);
     var $math = $mathWrapper.children();
     $math.html($elem.text());
@@ -87,24 +85,6 @@ function mathjax($elem) {
       mathElems.each((idx,elem) => decorate(elem, isPreview));
     });
   }
-}
-
-function findProperties(obj) {
-    var aPropertiesAndMethods = [];
-
-    do {
-        aPropertiesAndMethods = aPropertiesAndMethods.concat(Object.getOwnPropertyNames(obj));
-    } while (obj = Object.getPrototypeOf(obj));
-
-    for ( var a = 0; a < aPropertiesAndMethods.length; ++a) {
-        for ( var b = a + 1; b < aPropertiesAndMethods.length; ++b) {
-            if (aPropertiesAndMethods[a] === aPropertiesAndMethods[b]) {
-                aPropertiesAndMethods.splice(a--, 1);
-            }
-        }
-    }
-
-    return aPropertiesAndMethods;
 }
 
 function initializeMath(api) {
