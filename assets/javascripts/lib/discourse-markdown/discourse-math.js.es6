@@ -154,12 +154,16 @@ export function setup(helper) {
     return;
   }
 
+  let enable_asciimath;
   helper.registerOptions((opts, siteSettings) => {
     opts.features.math = siteSettings.discourse_math_enabled;
+    enable_asciimath = siteSettings.discourse_math_enable_asciimath;
   });
 
   helper.registerPlugin(md => {
-    md.inline.ruler.after('escape', 'asciimath', asciiMath);
+    if(enable_asciimath) {
+      md.inline.ruler.after('escape', 'asciimath', asciiMath);
+    }
     md.inline.ruler.after('escape', 'math', inlineMath);
     md.block.ruler.after('code', 'math', blockMath, {
       alt: ['paragraph', 'reference', 'blockquote', 'list']
