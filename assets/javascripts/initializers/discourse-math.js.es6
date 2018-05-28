@@ -2,14 +2,13 @@ import { withPluginApi } from 'discourse/lib/plugin-api';
 import loadScript from 'discourse/lib/load-script';
 
 let initializedMathJax = false;
-let zoom_on_hover, enable_accessibility;
 
-function initMathJax() {
+function initMathJax(opts) {
   if (initializedMathJax) { return; }
 
   var extensions = ["toMathML.js", "Safe.js"];
 
-  if (enable_accessibility) {
+  if (opts.enable_accessibility) {
     extensions.push("[a11y]/accessibility-menu.js");
   }
 
@@ -21,7 +20,7 @@ function initMathJax() {
     root: '/plugins/discourse-math/mathjax'
   };
 
-  if(zoom_on_hover) {
+  if(opts.zoom_on_hover) {
     settings.menuSettings = {zoom: "Hover"};
     settings.MathEvents = {hover: 750};
   }
@@ -29,12 +28,13 @@ function initMathJax() {
   initializedMathJax = true;
 }
 
-function ensureMathJax(){
-  initMathJax();
+function ensureMathJax(opts){
+  initMathJax(opts);
   return loadScript('/plugins/discourse-math/mathjax/MathJax.1.7.1.js');
 }
 
 function decorate(elem, isPreview){
+
   const $elem= $(elem);
 
   if ($elem.data('applied-mathjax')){
@@ -70,35 +70,43 @@ function decorate(elem, isPreview){
   }, isPreview ? 200 : 0);
 }
 
-function mathjax($elem) {
-
+function mathjax($elem, opts) {
   if (!$elem || !$elem.find) {
     return;
   }
 
-  const mathElems = $elem.find('.math, .asciimath');
+  let mathElems;
+  if(opts.enable_asciimath) {
+    mathElems = $elem.find('.math, .asciimath');
+  }
+  else {
+    mathElems = $elem.find('.math');
+  }
 
   if (mathElems.length > 0) {
     const isPreview = $elem.hasClass('d-editor-preview');
 
-    ensureMathJax().then(()=>{
+    ensureMathJax(opts).then(()=>{
       mathElems.each((idx,elem) => decorate(elem, isPreview));
     });
   }
 }
 
-function initializeMath(api) {
-  api.decorateCooked(mathjax);
+function initializeMath(api, discourse_math_opts) {
+  api.decorateCooked(function(elem) {mathjax(elem,discourse_math_opts)});
 }
 
 export default {
   name: "apply-math",
   initialize(container) {
     const siteSettings = container.lookup('site-settings:main');
-    zoom_on_hover = siteSettings.discourse_math_zoom_on_hover;
-    enable_accessibility = siteSettings.discourse_math_enable_accessibility;
+    let discourse_math_opts = {
+      zoom_on_hover: siteSettings.discourse_math_zoom_on_hover,
+      enable_accessibility: siteSettings.discourse_math_enable_accessibility,
+      enable_asciimath: siteSettings.discourse_math_enable_asciimath
+    };
     if (siteSettings.discourse_math_enabled) {
-      withPluginApi('0.5', initializeMath);
+      withPluginApi('0.5', function(api) {initializeMath(api,discourse_math_opts)});
     }
   }
 };
