@@ -6,3 +6,4 @@ en:
     discourse_math_enabled: 'Enable Discourse Math plugin (will add special processing to $ and $$ blocks)'
     discourse_math_zoom_on_hover: 'Zoom 200% on hover'
     discourse_math_enable_accessibility: 'Enable accessibility features'
+    discourse_math_enable_asciimath: 'Enable asciimath (will add special processing to % delimited input)'
