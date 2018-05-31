@@ -7,6 +7,7 @@
 
 es:
   site_settings:
-    discourse_math_enabled: 'Habilitar plugin Discourse Math (añadirá procesamiento especial para los bloques con $ y $$)'
-    discourse_math_zoom_on_hover: 'Ampliar en un 200% al pasar el cursor por encima'
-    discourse_math_enable_accessibility: 'Habilitar las funciones de accesibilidad'
+    discourse_math_enabled: 'Habilitar el plugin Discourse Math (agregará procesamiento especial para bloques $ y $$)'
+    discourse_math_zoom_on_hover: 'Zoom 200% en hover'
+    discourse_math_enable_accessibility: 'Habilitar características de accesibilidad'
+    discourse_math_enable_asciimath: 'Habilite asciimath (agregará procesamiento especial a % para delimitar la entrada)'

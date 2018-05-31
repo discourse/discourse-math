@@ -10,3 +10,4 @@ de:
     discourse_math_enabled: 'Aktiviere das Discourse-Mathematik-Plugin (fügt spezielle Bearbeitungsschritte für $- und $$-Blöcke hinzu)'
     discourse_math_zoom_on_hover: 'Zoom auf 200% beim Überfahren mit der Maus'
     discourse_math_enable_accessibility: 'Aktiviere Barrierefreiheit-Funktionen'
+    discourse_math_enable_asciimath: 'Aktiviere AsciiMath (fügt spezielle Bearbeitungsschritte für Eingaben hinzu, die mit dem Prozentzeichen getrennt sind)'

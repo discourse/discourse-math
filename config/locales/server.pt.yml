@@ -8,3 +8,5 @@
 pt:
   site_settings:
     discourse_math_enabled: 'Ativar extensão "Discourse Math" (irá adicionar um processamento especial para $ e $$ blocos)'
+    discourse_math_zoom_on_hover: 'Ampliar 200% ao passar o ponteiro do rato'
+    discourse_math_enable_accessibility: 'Activar funcionalidades de acessibilidade'
