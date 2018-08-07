@@ -30,7 +30,7 @@ function initMathJax(opts) {
 
 function ensureMathJax(opts){
   initMathJax(opts);
-  return loadScript('/plugins/discourse-math/mathjax/MathJax.1.7.1.js');
+  return loadScript('/plugins/discourse-math/mathjax/MathJax.2.7.5.js');
 }
 
 function decorate(elem, isPreview){
