@@ -108,7 +108,7 @@ function initializeMath(api, discourse_math_opts) {
 }
 
 export default {
-  name: "apply-math",
+  name: "apply-math-mathjax",
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
     let discourse_math_opts = {
@@ -116,7 +116,7 @@ export default {
       enable_accessibility: siteSettings.discourse_math_enable_accessibility,
       enable_asciimath: siteSettings.discourse_math_enable_asciimath
     };
-    if (siteSettings.discourse_math_enabled) {
+    if (siteSettings.discourse_math_enabled && siteSettings.discourse_math_provider == 'mathjax') {
       withPluginApi("0.5", function(api) {
         initializeMath(api, discourse_math_opts);
       });
