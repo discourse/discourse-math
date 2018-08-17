@@ -52,14 +52,14 @@ function decorate(elem, isPreview) {
       `<${tag} style="display: none;"><script type="math/tex${display}"></script></${tag}>`
     );
     $math = $mathWrapper.children();
-    $math.html($elem.text());
+    $math.text($elem.text());
     $elem.after($mathWrapper);
   } else if ($elem.hasClass("asciimath")) {
     $mathWrapper = $(
       `<span style="display: none;"><script type="math/asciimath"></script></span>`
     );
     $math = $mathWrapper.children();
-    $math.html($elem.text());
+    $math.text($elem.text());
     $elem.after($mathWrapper);
   }
 
