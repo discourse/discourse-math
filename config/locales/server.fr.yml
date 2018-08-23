@@ -10,3 +10,4 @@ fr:
     discourse_math_enabled: 'Activer le plugin Math de Discourse (ajoutera un traitement spécifique des blocs $ et $$)'
     discourse_math_zoom_on_hover: 'Zoom 200% quand la souris passe dessus'
     discourse_math_enable_accessibility: 'Activer les fonctions d''accessibilité'
+    discourse_math_enable_asciimath: 'Activer asciimath (ajoutera un traitement spécial à l''entrée délimitée en %)'

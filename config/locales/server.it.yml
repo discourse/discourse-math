@@ -7,4 +7,5 @@
 
 it:
   site_settings:
+    discourse_math_zoom_on_hover: 'Ingrandisci al 200% al passaggio'
     discourse_math_enable_accessibility: 'Abilita le caratteristiche di accessibilità'

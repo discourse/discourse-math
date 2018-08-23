@@ -1,0 +1,12 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+sw:
+  site_settings:
+    discourse_math_enabled: 'Ruhusu Programu Jalizi ya Discourse Hisabati (itaongeza vitu kwenye $ na $$)'
+    discourse_math_zoom_on_hover: 'Kuza kwa 200% uki ambaa juu puku yako'
+    discourse_math_enable_accessibility: 'Ruhusu vipengele vya ufikikaji'

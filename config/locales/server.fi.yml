@@ -8,4 +8,6 @@
 fi:
   site_settings:
     discourse_math_enabled: 'Ota käyttöön Discoursen matematiikkalisäosa ($ ja $$ blokit käsitellään erityisellä tavalla)'
+    discourse_math_zoom_on_hover: 'Suurenna 200% hiiren kursorin alla'
     discourse_math_enable_accessibility: 'Ota käyttöön esteettömyysominaisuudet'
+    discourse_math_enable_asciimath: 'Ota käyttöön asciimath (% blokit käsitellään erityisellä tavalla)'

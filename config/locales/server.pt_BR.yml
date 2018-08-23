@@ -5,4 +5,9 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-pt_BR: {}
+pt_BR:
+  site_settings:
+    discourse_math_enabled: 'Habilitar o plug-in Discourse Math (adicionará processamento especial a blocos $ e $$)'
+    discourse_math_zoom_on_hover: 'Zoom de 200% no foco'
+    discourse_math_enable_accessibility: 'Habilitar recursos de acessibilidade'
+    discourse_math_enable_asciimath: 'Habilitar asciimath (adicionará processamento especial a% de entrada delimitada)'

@@ -1,0 +1,13 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+hu:
+  site_settings:
+    discourse_math_enabled: 'Discourse Math plugin engedélyezése(speciális feldolgozást ad hozzá a $ és $$ blokkokhoz)'
+    discourse_math_zoom_on_hover: '200% nagyítás ráhuzásnál'
+    discourse_math_enable_accessibility: 'Hozzáférési lehetőségek engedélyezése'
+    discourse_math_enable_asciimath: 'asciimath engedélyezése (speciális feldolgozást ad hozzá a % tagolt bemenethez)'
