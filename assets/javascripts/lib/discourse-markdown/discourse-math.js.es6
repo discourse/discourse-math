@@ -24,31 +24,33 @@ function isSafeBoundary(character_code, delimiter_code, md) {
 }
 
 function math_input(state, silent, delimiter_code) {
-
   let pos = state.pos,
-      posMax = state.posMax;
+    posMax = state.posMax;
 
-  if (silent || state.src.charCodeAt(pos) !== delimiter_code || posMax < pos+2) {
+  if (
+    silent ||
+    state.src.charCodeAt(pos) !== delimiter_code ||
+    posMax < pos + 2
+  ) {
     return false;
   }
 
   // too short
-  if (state.src.charCodeAt(pos+1) === delimiter_code) {
+  if (state.src.charCodeAt(pos + 1) === delimiter_code) {
     return false;
   }
 
   if (pos > 0) {
-    let prev = state.src.charCodeAt(pos-1);
+    let prev = state.src.charCodeAt(pos - 1);
     if (!isSafeBoundary(prev, delimiter_code, state.md)) {
       return false;
     }
   }
 
-
   let found;
-  for(let i=pos+1; i<posMax; i++) {
+  for (let i = pos + 1; i < posMax; i++) {
     let code = state.src.charCodeAt(i);
-    if (code === delimiter_code && state.src.charCodeAt(i-1) !== 92 /* \ */) {
+    if (code === delimiter_code && state.src.charCodeAt(i - 1) !== 92 /* \ */) {
       found = i;
       break;
     }
@@ -58,33 +60,32 @@ function math_input(state, silent, delimiter_code) {
     return false;
   }
 
-  if (found+1 <= posMax) {
-    let next = state.src.charCodeAt(found+1);
+  if (found + 1 <= posMax) {
+    let next = state.src.charCodeAt(found + 1);
     if (next && !isSafeBoundary(next, delimiter_code, state.md)) {
       return false;
     }
   }
 
-  let data = (state.src.slice(pos+1,found));
-  let token = state.push('html_raw', '', 0);
+  let data = state.src.slice(pos + 1, found);
+  let token = state.push("html_raw", "", 0);
 
   const escaped = state.md.utils.escapeHtml(data);
   let math_class = delimiter_code === 36 ? "'math'" : "'asciimath'";
   token.content = `<span class=${math_class}>${escaped}</span>`;
-  state.pos = found+1;
+  state.pos = found + 1;
   return true;
 }
 
 function inlineMath(state, silent) {
-  return math_input(state, silent, 36 /* $ */)
+  return math_input(state, silent, 36 /* $ */);
 }
 
 function asciiMath(state, silent) {
-  return math_input(state, silent, 37 /* % */)
+  return math_input(state, silent, 37 /* % */);
 }
 
 function isBlockMarker(state, start, max, md) {
-
   if (state.src.charCodeAt(start) !== 36 /* $ */) {
     return false;
   }
@@ -98,7 +99,7 @@ function isBlockMarker(state, start, max, md) {
   start++;
 
   // ensure we only have newlines after our $$
-  for(let i=start; i < max; i++) {
+  for (let i = start; i < max; i++) {
     if (!md.utils.isSpace(state.src.charCodeAt(i))) {
       return false;
     }
@@ -107,17 +108,17 @@ function isBlockMarker(state, start, max, md) {
   return true;
 }
 
-function blockMath(state, startLine, endLine, silent){
-  let
-    start = state.bMarks[startLine] + state.tShift[startLine],
+function blockMath(state, startLine, endLine, silent) {
+  let start = state.bMarks[startLine] + state.tShift[startLine],
     max = state.eMarks[startLine];
-
 
   if (!isBlockMarker(state, start, max, state.md)) {
     return false;
   }
 
-  if (silent) { return true; }
+  if (silent) {
+    return true;
+  }
 
   let nextLine = startLine;
   let closed = false;
@@ -129,27 +130,36 @@ function blockMath(state, startLine, endLine, silent){
       break;
     }
 
-    if (isBlockMarker(state, state.bMarks[nextLine] + state.tShift[nextLine], state.eMarks[nextLine], state.md)) {
+    if (
+      isBlockMarker(
+        state,
+        state.bMarks[nextLine] + state.tShift[nextLine],
+        state.eMarks[nextLine],
+        state.md
+      )
+    ) {
       closed = true;
       break;
     }
   }
 
-  let token = state.push('html_raw', '', 0);
+  let token = state.push("html_raw", "", 0);
 
-  let endContent = closed ? state.eMarks[nextLine-1] : state.eMarks[nextLine];
-  let content = state.src.slice(state.bMarks[startLine+1] + state.tShift[startLine+1], endContent);
+  let endContent = closed ? state.eMarks[nextLine - 1] : state.eMarks[nextLine];
+  let content = state.src.slice(
+    state.bMarks[startLine + 1] + state.tShift[startLine + 1],
+    endContent
+  );
 
   const escaped = state.md.utils.escapeHtml(content);
   token.content = `<div class='math'>\n${escaped}\n</div>\n`;
 
-  state.line = closed ? nextLine+1 : nextLine;
+  state.line = closed ? nextLine + 1 : nextLine;
 
   return true;
 }
 
 export function setup(helper) {
-
   if (!helper.markdownIt) {
     return;
   }
@@ -161,12 +171,12 @@ export function setup(helper) {
   });
 
   helper.registerPlugin(md => {
-    if(enable_asciimath) {
-      md.inline.ruler.after('escape', 'asciimath', asciiMath);
+    if (enable_asciimath) {
+      md.inline.ruler.after("escape", "asciimath", asciiMath);
     }
-    md.inline.ruler.after('escape', 'math', inlineMath);
-    md.block.ruler.after('code', 'math', blockMath, {
-      alt: ['paragraph', 'reference', 'blockquote', 'list']
+    md.inline.ruler.after("escape", "math", inlineMath);
+    md.block.ruler.after("code", "math", blockMath, {
+      alt: ["paragraph", "reference", "blockquote", "list"]
     });
   });
 }
