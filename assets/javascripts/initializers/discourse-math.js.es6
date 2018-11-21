@@ -19,7 +19,7 @@ function initMathJax(opts) {
     TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"] },
     extensions: extensions,
     showProcessingMessages: false,
-    root: "/plugins/discourse-math/mathjax"
+    root: Discourse.getURLWithCDN("/plugins/discourse-math/mathjax")
   };
 
   if (opts.zoom_on_hover) {
