@@ -3,7 +3,9 @@ import loadScript from "discourse/lib/load-script";
 
 function ensureKaTeX() {
   return loadScript("/plugins/discourse-math/katex/katex.min.js").then(() => {
-    return loadScript("/plugins/discourse-math/katex/katex.min.css", { css: true })
+    return loadScript("/plugins/discourse-math/katex/katex.min.css", { css: true }).then(() => {
+      return loadScript("/plugins/discourse-math/katex/mhchem.min.js")
+    })
   })
 }
 
