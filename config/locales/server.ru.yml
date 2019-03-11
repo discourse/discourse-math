@@ -8,6 +8,3 @@
 ru:
   site_settings:
     discourse_math_enabled: 'Включить плагин Discourse Math (добавит специальную обработку в блоки $ и $$)'
-    discourse_math_zoom_on_hover: 'Увеличить 200% при наведении'
-    discourse_math_enable_accessibility: 'Включить специальные возможности'
-    discourse_math_enable_asciimath: 'Включить asciimath (добавит специальную обработку для ввода % с разделителями)'

@@ -8,5 +8,3 @@
 ur:
   site_settings:
     discourse_math_enabled: 'ڈسکورس ریاضی پلگ اِن فعال کریں ($ اور $$ بلاکس کیلئے خصوصی پروسیسنگ شامل کردی جائیگی)'
-    discourse_math_zoom_on_hover: 'ہَووَر پر 200% زوم کریں'
-    discourse_math_enable_accessibility: 'رسائی کی خصوصیات فعال کریں'

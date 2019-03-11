@@ -8,5 +8,3 @@
 he:
   site_settings:
     discourse_math_enabled: 'הפעלת תוסף המתמטיקה של Discourse (תוספת של עיבוד מיוחד של בלוקים מסוג $ ומסוג $$)'
-    discourse_math_zoom_on_hover: 'התקרבות של 200% בעת ריחוף עם העכבר'
-    discourse_math_enable_accessibility: 'הפעלת תכונות נגישות'

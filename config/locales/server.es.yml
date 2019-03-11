@@ -8,6 +8,7 @@
 es:
   site_settings:
     discourse_math_enabled: 'Habilitar el plugin Discourse Math (agregará procesamiento especial para bloques $ y $$)'
-    discourse_math_zoom_on_hover: 'Zoom 200% en hover'
-    discourse_math_enable_accessibility: 'Habilitar características de accesibilidad'
-    discourse_math_enable_asciimath: 'Habilite asciimath (agregará procesamiento especial a % para delimitar la entrada)'
+    discourse_math_provider: 'Proveedor del renderizado de math por defecto'
+    discourse_math_zoom_on_hover: 'Zoom 200% en hover (únicamente MathJax)'
+    discourse_math_enable_accessibility: 'Habilitar características de accesibilidad (únicamente MathJax)'
+    discourse_math_enable_asciimath: 'Habilitar asciimath (agregará procesamiento especial a % para delimitar la entrada) (únicamente MathJax)'

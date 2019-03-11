@@ -5,6 +5,4 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-lt:
-  site_settings:
-    discourse_math_zoom_on_hover: 'Piartinti 200% užvedus pele'
+lt: {}
