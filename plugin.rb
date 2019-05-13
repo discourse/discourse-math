@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # name: discourse-math
 # about: Official mathjax plugin for Discourse
 # version: 0.9
