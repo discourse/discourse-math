@@ -63,7 +63,7 @@ function decorate(elem, isPreview) {
     $elem.after($mathWrapper);
   }
 
-  Em.run.later(
+  Ember.run.later(
     this,
     () => {
       window.MathJax.Hub.Queue(() => {

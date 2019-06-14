@@ -4,12 +4,12 @@ import loadScript from "discourse/lib/load-script";
 function ensureKaTeX() {
   return loadScript("/plugins/discourse-math/katex/katex.min.js").then(() => {
     return loadScript("/plugins/discourse-math/katex/katex.min.css", { css: true }).then(() => {
-      return loadScript("/plugins/discourse-math/katex/mhchem.min.js")
-    })
-  })
+      return loadScript("/plugins/discourse-math/katex/mhchem.min.js");
+    });
+  });
 }
 
-function decorate(elem, isPreview) {
+function decorate(elem) {
   const $elem = $(elem);
   const displayMode = elem.tagName === 'DIV';
 
@@ -33,10 +33,8 @@ function katex($elem) {
   const mathElems = $elem.find(".math");
 
   if (mathElems.length > 0) {
-    const isPreview = $elem.hasClass("d-editor-preview");
-
     ensureKaTeX().then(() => {
-      mathElems.each((idx, elem) => decorate(elem, isPreview));
+      mathElems.each((idx, elem) => decorate(elem));
     });
   }
 }
