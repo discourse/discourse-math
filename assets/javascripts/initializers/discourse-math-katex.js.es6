@@ -42,9 +42,12 @@ function katex($elem) {
 }
 
 function initializeMath(api) {
-  api.decorateCooked(function(elem) {
-    katex(elem);
-  });
+  api.decorateCooked(
+    function(elem) {
+      katex(elem);
+    },
+    { id: "katex" }
+  );
 }
 
 export default {
