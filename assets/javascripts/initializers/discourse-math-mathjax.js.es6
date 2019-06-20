@@ -102,9 +102,12 @@ function mathjax($elem, opts) {
 }
 
 function initializeMath(api, discourse_math_opts) {
-  api.decorateCooked(function(elem) {
-    mathjax(elem, discourse_math_opts);
-  });
+  api.decorateCooked(
+    function(elem) {
+      mathjax(elem, discourse_math_opts);
+    },
+    { id: "mathjax" }
+  );
 }
 
 export default {
