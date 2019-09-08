@@ -22,7 +22,7 @@ function decorate(elem) {
 
   if ($elem.hasClass("math")) {
     const text = $elem.text();
-    $elem.text("");
+    $elem.addClass("math-container").text("");
     window.katex.render(text, elem, { displayMode });
   }
 }
