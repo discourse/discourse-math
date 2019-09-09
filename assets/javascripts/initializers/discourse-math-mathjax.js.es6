@@ -49,14 +49,14 @@ function decorate(elem, isPreview) {
     const tag = elem.tagName === "DIV" ? "div" : "span";
     const display = tag === "div" ? "; mode=display" : "";
     $mathWrapper = $(
-      `<${tag} style="display: none;"><script type="math/tex${display}"></script></${tag}>`
+      `<${tag} class="math-container" style="display: none;"><script type="math/tex${display}"></script></${tag}>`
     );
     $math = $mathWrapper.children();
     $math.text($elem.text());
     $elem.after($mathWrapper);
   } else if ($elem.hasClass("asciimath")) {
     $mathWrapper = $(
-      `<span style="display: none;"><script type="math/asciimath"></script></span>`
+      `<span class="math-container" style="display: none;"><script type="math/asciimath"></script></span>`
     );
     $math = $mathWrapper.children();
     $math.text($elem.text());
