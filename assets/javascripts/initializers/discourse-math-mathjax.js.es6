@@ -48,16 +48,30 @@ function decorate(elem, isPreview) {
   if ($elem.hasClass("math")) {
     const tag = elem.tagName === "DIV" ? "div" : "span";
     const display = tag === "div" ? "; mode=display" : "";
+    const displayClass = tag === "div" ? "block-math" : "inline-math";
+    const type = `math/tex${display}`;
+    const classList = `math-container ${displayClass} mathjax-math`;
+
     $mathWrapper = $(
-      `<${tag} class="math-container" style="display: none;"><script type="math/tex${display}"></script></${tag}>`
+      `<${tag} class="${classList}" style="display: none;">
+         <script type="${type}"></script>
+       </${tag}>`
     );
+
     $math = $mathWrapper.children();
     $math.text($elem.text());
     $elem.after($mathWrapper);
   } else if ($elem.hasClass("asciimath")) {
+    // asciimath is always inline
+    const classList = `math-container inline-math ascii-math`;
+    const type = `math/asciimath`;
+
     $mathWrapper = $(
-      `<span class="math-container" style="display: none;"><script type="math/asciimath"></script></span>`
+      `<span class="${classList}" style="display: none;">
+         <script type="${type}"></script>
+       </span>`
     );
+
     $math = $mathWrapper.children();
     $math.text($elem.text());
     $elem.after($mathWrapper);

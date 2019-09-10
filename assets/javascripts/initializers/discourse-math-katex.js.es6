@@ -21,8 +21,10 @@ function decorate(elem) {
   $elem.data("applied-katex", true);
 
   if ($elem.hasClass("math")) {
+    const tag = elem.tagName === "DIV" ? "div" : "span";
+    const displayClass = tag === "div" ? "block-math" : "inline-math";
     const text = $elem.text();
-    $elem.addClass("math-container").text("");
+    $elem.addClass(`math-container ${displayClass} katex-math`).text("");
     window.katex.render(text, elem, { displayMode });
   }
 }
