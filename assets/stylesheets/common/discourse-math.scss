@@ -3,6 +3,9 @@
   &.ascii-math {
     display: block;
 
+    // we use tag selectors because MathJax does not provide helpfull classes
+    // and the possible combinations a bit absurd. The styles are scoped by the
+    // parent selector. So they don't affect any other elements.
     > {
       div,
       span {
