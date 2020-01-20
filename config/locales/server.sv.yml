@@ -5,4 +5,10 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-sv: {}
+sv:
+  site_settings:
+    discourse_math_enabled: 'Aktivera Discourse Math-tillägget (lägger till specialbehandling av $- och $$-block)'
+    discourse_math_provider: 'Standardleverantör för matematisk rendering'
+    discourse_math_zoom_on_hover: 'Zooma 200 % under pekaren (endast MathJax)'
+    discourse_math_enable_accessibility: 'Aktivera tillgänglighetsfunktioner (endast MathJax)'
+    discourse_math_enable_asciimath: 'Aktivera asciimath (lägger till specialbehandling av %-avgränsad inmatning) (endast MathJax)'
