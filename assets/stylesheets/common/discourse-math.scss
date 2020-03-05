@@ -24,7 +24,7 @@
         // special handeling for katex
         .katex-html {
           display: block;
-          overflow: auto hidden;
+          overflow-x: auto;
           max-width: 100%;
           padding: 0.25em 0.5em;
           box-sizing: border-box;
