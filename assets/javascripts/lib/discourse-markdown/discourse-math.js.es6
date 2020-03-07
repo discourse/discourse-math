@@ -23,7 +23,8 @@ function isSafeBoundary(character_code, delimiter_code, md) {
   return false;
 }
 
-function math_input(state, silent, delimiter_code) {
+let inlineMath = delimiter => (state, silent) => {
+  let delimiter_code = delimiter.charCodeAt(0);
   let pos = state.pos,
     posMax = state.posMax;
 
@@ -71,35 +72,20 @@ function math_input(state, silent, delimiter_code) {
   let token = state.push("html_raw", "", 0);
 
   const escaped = state.md.utils.escapeHtml(data);
-  let math_class = delimiter_code === 36 ? "'math'" : "'asciimath'";
+  let math_class = delimiter_code === 37 /* % */ ? "'asciimath'" : "'math'";
   token.content = `<span class=${math_class}>${escaped}</span>`;
   state.pos = found + 1;
   return true;
 }
 
-function inlineMath(state, silent) {
-  return math_input(state, silent, 36 /* $ */);
-}
+function isBlockMarker(state, start, max, md, blockMarker) {
 
-function asciiMath(state, silent) {
-  return math_input(state, silent, 37 /* % */);
-}
-
-function isBlockMarker(state, start, max, md) {
-  if (state.src.charCodeAt(start) !== 36 /* $ */) {
+  if (!state.src.startsWith(blockMarker, start)) {
     return false;
   }
 
-  start++;
-
-  if (state.src.charCodeAt(start) !== 36 /* $ */) {
-    return false;
-  }
-
-  start++;
-
-  // ensure we only have newlines after our $$
-  for (let i = start; i < max; i++) {
+  // ensure we only have spaces and newline after blockmarker
+  for (let i = start + blockMarker.length; i < max; i++) {
     if (!md.utils.isSpace(state.src.charCodeAt(i))) {
       return false;
     }
@@ -108,11 +94,11 @@ function isBlockMarker(state, start, max, md) {
   return true;
 }
 
-function blockMath(state, startLine, endLine, silent) {
+let blockMath = blockMarker => (state, startLine, endLine, silent) => {
   let start = state.bMarks[startLine] + state.tShift[startLine],
     max = state.eMarks[startLine];
 
-  if (!isBlockMarker(state, start, max, state.md)) {
+  if (!isBlockMarker(state, start, max, state.md, blockMarker)) {
     return false;
   }
 
@@ -125,7 +111,7 @@ function blockMath(state, startLine, endLine, silent) {
   for (;;) {
     nextLine++;
 
-    // unclosed $$ is considered math
+    // Unclosed blockmarker is considered math
     if (nextLine >= endLine) {
       break;
     }
@@ -135,7 +121,8 @@ function blockMath(state, startLine, endLine, silent) {
         state,
         state.bMarks[nextLine] + state.tShift[nextLine],
         state.eMarks[nextLine],
-        state.md
+        state.md,
+        blockMarker.replace('\\begin{', '\\end{')
       )
     ) {
       closed = true;
@@ -145,11 +132,15 @@ function blockMath(state, startLine, endLine, silent) {
 
   let token = state.push("html_raw", "", 0);
 
-  let endContent = closed ? state.eMarks[nextLine - 1] : state.eMarks[nextLine];
-  let content = state.src.slice(
-    state.bMarks[startLine + 1] + state.tShift[startLine + 1],
-    endContent
-  );
+  // Blockmarker starting with \begin{ end ending with '\end{'
+  // needs to be passed to the TeX engine
+  let endContent = blockMarker.startsWith('\\begin{') || !closed ?
+      state.eMarks[nextLine] : state.eMarks[nextLine - 1];
+
+  let startContent = blockMarker.startsWith('\\begin{') ?
+      state.bMarks[startLine] : state.bMarks[startLine + 1] + state.tShift[startLine + 1];
+
+  let content = state.src.slice(startContent, endContent);
 
   const escaped = state.md.utils.escapeHtml(content);
   token.content = `<div class='math'>\n${escaped}\n</div>\n`;
@@ -165,18 +156,34 @@ export function setup(helper) {
   }
 
   let enable_asciimath;
+  let inlineDelimiters, blockDelimiters;
   helper.registerOptions((opts, siteSettings) => {
     opts.features.math = siteSettings.discourse_math_enabled;
     enable_asciimath = siteSettings.discourse_math_enable_asciimath;
+    inlineDelimiters = siteSettings.discourse_math_inline_delimiters;
+    blockDelimiters = siteSettings.discourse_math_block_delimiters;
   });
 
   helper.registerPlugin(md => {
     if (enable_asciimath) {
-      md.inline.ruler.after("escape", "asciimath", asciiMath);
+      md.inline.ruler.after("escape", "asciimath", inlineMath('%'));
     }
-    md.inline.ruler.after("escape", "math", inlineMath);
-    md.block.ruler.after("code", "math", blockMath, {
-      alt: ["paragraph", "reference", "blockquote", "list"]
-    });
+    if (inlineDelimiters) {
+      inlineDelimiters.split('|').forEach(delim => {
+        // We expect only one character
+        // for inline math delimiter
+        let d = delim.trim();
+        if (d.length !== 1) return;
+        md.inline.ruler.after("escape", "math", inlineMath(d));
+      });
+    }
+    if (blockDelimiters) {
+      blockDelimiters.split('|').forEach(delim => {
+        let d = delim.trim();
+        md.block.ruler.after("code", "math", blockMath(delim), {
+          alt: ["paragraph", "reference", "blockquote", "list"]
+        });
+      });
+    }
   });
 }

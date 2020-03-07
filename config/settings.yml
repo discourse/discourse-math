@@ -9,6 +9,16 @@ plugins:
     choices:
       - mathjax
       - katex
+  discourse_math_inline_delimiters:
+    default: '$'
+    client: true
+    type: list
+    list_type: compact
+  discourse_math_block_delimiters:
+    default: '$$|\\begin{align}'
+    client: true
+    type: list
+    list_type: compact
   discourse_math_zoom_on_hover:
     default: false
     client: true
