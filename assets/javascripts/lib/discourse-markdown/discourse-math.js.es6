@@ -72,7 +72,7 @@ let inlineMath = (startDelimiter, endDelimiter) => (state, silent) => {
 
   if (found + endDelimiter.length <= posMax) {
     let next = state.src[found + endDelimiter.length];
-    if (!isSafeBoundary(next, endDelimiter)) {
+    if (next && !isSafeBoundary(next, endDelimiter)) {
       return false;
     }
   }
