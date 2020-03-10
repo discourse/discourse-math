@@ -8,5 +8,6 @@ en:
     discourse_math_zoom_on_hover: 'Zoom 200% on hover (MathJax only)'
     discourse_math_enable_accessibility: 'Enable accessibility features (MathJax only)'
     discourse_math_enable_asciimath: 'Enable asciimath (will add special processing to % delimited input) (MathJax only)'
-    discourse_math_inline_delimiters: 'You can have multiple delimiters for inline math, but each must be single character'
-    discourse_math_block_delimiters: 'You can have multiple delimiters for block math. Delimiters starting with "\begin{" will be passed to the LaTeX engine and are expected to end with the corresponding \end{} command'
+    discourse_math_inline_delimiters: 'You can have multiple delimiters for inline math'
+    discourse_math_block_delimiters: 'You can have multiple delimiters for block math. Delimiters starting with "\begin{}" will be passed to the LaTeX engine and should to end with the corresponding \end{} command'
+    discourse_math_process_tex_environments: 'Enable processing of "\begin{*}...\end{*}" environments (MathJax only)'

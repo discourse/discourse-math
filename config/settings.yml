@@ -10,15 +10,16 @@ plugins:
       - mathjax
       - katex
   discourse_math_inline_delimiters:
-    default: '$'
+    default: '$,$'
     client: true
     type: list
-    list_type: compact
   discourse_math_block_delimiters:
-    default: '$$|\\begin{align}'
+    default: '$$,$$'
     client: true
     type: list
-    list_type: compact
+  discourse_math_process_tex_environments:
+    default: false
+    client: true
   discourse_math_zoom_on_hover:
     default: false
     client: true
