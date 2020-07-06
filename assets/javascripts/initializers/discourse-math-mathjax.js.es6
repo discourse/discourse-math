@@ -1,4 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { getURLWithCDN } from "discourse-common/lib/get-url";
 import loadScript from "discourse/lib/load-script";
 
 let initializedMathJax = false;
@@ -19,7 +20,7 @@ function initMathJax(opts) {
     TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"] },
     extensions: extensions,
     showProcessingMessages: false,
-    root: Discourse.getURLWithCDN("/plugins/discourse-math/mathjax")
+    root: getURLWithCDN("/plugins/discourse-math/mathjax")
   };
 
   if (opts.zoom_on_hover) {
