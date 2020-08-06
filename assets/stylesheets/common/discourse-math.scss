@@ -49,8 +49,8 @@
           height: 100%;
           background: linear-gradient(
             to right,
-            rgba($secondary, 1) 0%,
-            rgba($secondary, 0) 100%
+            rgba(var(--secondary-rgb), 1) 0%,
+            rgba(var(--secondary-rgb), 0) 100%
           );
         }
         &:after {
@@ -63,8 +63,8 @@
           height: 100%;
           background: linear-gradient(
             to right,
-            rgba($secondary, 0) 0%,
-            rgba($secondary, 1) 100%
+            rgba(var(--secondary-rgb), 0) 0%,
+            rgba(var(--secondary-rgb), 1) 100%
           );
         }
 
