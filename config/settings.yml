@@ -9,6 +9,17 @@ plugins:
     choices:
       - mathjax
       - katex
+  discourse_math_inline_delimiters:
+    default: '$,$'
+    client: true
+    type: list
+  discourse_math_block_delimiters:
+    default: '$$,$$'
+    client: true
+    type: list
+  discourse_math_process_tex_environments:
+    default: false
+    client: true
   discourse_math_zoom_on_hover:
     default: false
     client: true
