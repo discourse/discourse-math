@@ -4,7 +4,7 @@ import loadScript from "discourse/lib/load-script";
 function ensureKaTeX() {
   return loadScript("/plugins/discourse-math/katex/katex.min.js").then(() => {
     return loadScript("/plugins/discourse-math/katex/katex.min.css", {
-      css: true
+      css: true,
     }).then(() => {
       return loadScript("/plugins/discourse-math/katex/mhchem.min.js");
     });
@@ -45,7 +45,7 @@ function katex($elem) {
 
 function initializeMath(api) {
   api.decorateCooked(
-    function(elem) {
+    function (elem) {
       katex(elem);
     },
     { id: "katex" }
@@ -60,9 +60,9 @@ export default {
       siteSettings.discourse_math_enabled &&
       siteSettings.discourse_math_provider === "katex"
     ) {
-      withPluginApi("0.5", function(api) {
+      withPluginApi("0.5", function (api) {
         initializeMath(api);
       });
     }
-  }
+  },
 };

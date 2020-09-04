@@ -170,13 +170,13 @@ export function setup(helper) {
     enable_asciimath = siteSettings.discourse_math_enable_asciimath;
   });
 
-  helper.registerPlugin(md => {
+  helper.registerPlugin((md) => {
     if (enable_asciimath) {
       md.inline.ruler.after("escape", "asciimath", asciiMath);
     }
     md.inline.ruler.after("escape", "math", inlineMath);
     md.block.ruler.after("code", "math", blockMath, {
-      alt: ["paragraph", "reference", "blockquote", "list"]
+      alt: ["paragraph", "reference", "blockquote", "list"],
     });
   });
 }
