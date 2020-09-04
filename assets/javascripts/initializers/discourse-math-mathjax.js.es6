@@ -20,7 +20,7 @@ function initMathJax(opts) {
     TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"] },
     extensions: extensions,
     showProcessingMessages: false,
-    root: getURLWithCDN("/plugins/discourse-math/mathjax")
+    root: getURLWithCDN("/plugins/discourse-math/mathjax"),
   };
 
   if (opts.zoom_on_hover) {
@@ -118,7 +118,7 @@ function mathjax($elem, opts) {
 
 function initializeMath(api, discourse_math_opts) {
   api.decorateCooked(
-    function(elem) {
+    function (elem) {
       mathjax(elem, discourse_math_opts);
     },
     { id: "mathjax" }
@@ -132,15 +132,15 @@ export default {
     let discourse_math_opts = {
       zoom_on_hover: siteSettings.discourse_math_zoom_on_hover,
       enable_accessibility: siteSettings.discourse_math_enable_accessibility,
-      enable_asciimath: siteSettings.discourse_math_enable_asciimath
+      enable_asciimath: siteSettings.discourse_math_enable_asciimath,
     };
     if (
       siteSettings.discourse_math_enabled &&
       siteSettings.discourse_math_provider === "mathjax"
     ) {
-      withPluginApi("0.5", function(api) {
+      withPluginApi("0.5", function (api) {
         initializeMath(api, discourse_math_opts);
       });
     }
-  }
+  },
 };
