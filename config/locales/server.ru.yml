@@ -10,4 +10,4 @@ ru:
     discourse_math_provider: 'Математический провайдер по умолчанию'
     discourse_math_zoom_on_hover: 'Увеличение 200% при наведении (только MathJax)'
     discourse_math_enable_accessibility: 'Включить специальные возможности (только MathJax)'
-    discourse_math_enable_asciimath: 'Включить asciimath (добавит специальную обработку к вводу с разделителями%) (только MathJax)'
+    discourse_math_enable_asciimath: 'Включить asciimath (добавит специальную обработку к вводу с разделителями %) (только MathJax)'
