@@ -9,13 +9,13 @@ function initMathJax(opts) {
     return;
   }
 
-  let extensions = ["toMathML.js", "Safe.js"];
+  var extensions = ["toMathML.js", "Safe.js"];
 
   if (opts.enable_accessibility) {
     extensions.push("[a11y]/accessibility-menu.js");
   }
 
-  let settings = {
+  var settings = {
     jax: ["input/TeX", "input/AsciiMath", "input/MathML", "output/CommonHTML"],
     TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"] },
     extensions: extensions,
