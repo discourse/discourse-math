@@ -85,7 +85,7 @@ function decorate(elem, isPreview) {
         // don't bother processing previews removed from DOM
         if (elem.parentElement && elem.parentElement.offsetParent !== null) {
           window.MathJax.Hub.Typeset($math[0], () => {
-            $elem.remove();
+            $elem.hide();
             $mathWrapper.show();
           });
         }
