@@ -18,7 +18,7 @@ function initMathJax(opts) {
   let settings = {
     jax: ["input/TeX", "input/AsciiMath", "input/MathML", "output/CommonHTML"],
     TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"] },
-    extensions: extensions,
+    extensions,
     showProcessingMessages: false,
     root: getURLWithCDN("/plugins/discourse-math/mathjax"),
   };
