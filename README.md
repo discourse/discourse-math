@@ -1,5 +1,5 @@
-## Discourse Math plugin
+# Discourse Math Plugin
 
 Adds LaTeX support to your Discourse instance.
 
-https://meta.discourse.org/t/discourse-math-plugin/65770
+For more information, please see: https://meta.discourse.org/t/discourse-math-plugin/65770
