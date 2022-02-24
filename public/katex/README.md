@@ -1,4 +1,19 @@
 
+## How to update KaTeX for Discourse without building
+
+1. Fetch the latest release tarball
+2. Copy fonts
+3. Copy JS and CSS
+4. Replace font paths in CSS
+
+```bash
+DMPATH=/path/to/discourse-math  # set this to your path to the discourse-math repo
+wget -O- https://github.com/KaTeX/KaTeX/releases/latest/download/katex.tar.gz | tar -zx
+cp katex/fonts/*.woff* $DMPATH/public/katex/fonts/
+cp katex/katex.min.* katex/contrib/mhchem.min.js $DMPATH/public/katex/
+sed -i "s~url(fonts/~url(/plugins/discourse-math/katex/fonts/~g" $DMPATH/public/katex/katex.min.css
+```
+
 ## How to build KaTeX for Discourse
 
 1. `git clone https://github.com/KaTeX/KaTeX.git && cd KaTeX`
