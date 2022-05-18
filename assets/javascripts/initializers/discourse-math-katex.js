@@ -11,7 +11,7 @@ function ensureKaTeX() {
   });
 }
 
-function decorate(elem) {
+function decorate(elem, macros) {
   const $elem = $(elem);
   const displayMode = elem.tagName === "DIV";
 
@@ -25,7 +25,7 @@ function decorate(elem) {
     const displayClass = tag === "div" ? "block-math" : "inline-math";
     const text = $elem.text();
     $elem.addClass(`math-container ${displayClass} katex-math`).text("");
-    window.katex.render(text, elem, { displayMode });
+    window.katex.render(text, elem, { displayMode, macros });
   }
 }
 
@@ -38,7 +38,9 @@ function katex($elem) {
 
   if (mathElems.length > 0) {
     ensureKaTeX().then(() => {
-      mathElems.each((idx, elem) => decorate(elem));
+      // enable persistent macros: https://katex.org/docs/api.html#persistent-macros
+      const macros = {};
+      mathElems.each((idx, elem) => decorate(elem, macros));
     });
   }
 }
