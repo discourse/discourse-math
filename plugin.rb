@@ -5,6 +5,7 @@
 # version: 0.9
 # authors: Sam Saffron (sam)
 # url: https://github.com/discourse/discourse-math
+# transpile_js: true
 
 register_asset "stylesheets/common/discourse-math.scss"
 
