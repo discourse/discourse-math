@@ -13,7 +13,7 @@ function ensureKaTeX() {
 
 function decorate(elem, katexOpts) {
   const $elem = $(elem);
-  katexOpts['displayMode'] = elem.tagName === "DIV";
+  katexOpts["displayMode"] = elem.tagName === "DIV";
 
   if ($elem.data("applied-katex")) {
     return;
@@ -42,11 +42,11 @@ function katex($elem) {
       // also enable equation labelling and referencing which are disabled by default
       // both of these are enabled in mathjax by default, so now the katex implementation is (more) mathjax compatible
       const katexOpts = {
-        trust: (context) => ['\\htmlId', '\\href'].includes(context.command),
+        trust: (context) => ["\\htmlId", "\\href"].includes(context.command),
         macros: {
           "\\eqref": "\\href{###1}{(\\text{#1})}",
           "\\ref": "\\href{###1}{\\text{#1}}",
-          "\\label": "\\htmlId{#1}{}"
+          "\\label": "\\htmlId{#1}{}",
         },
         displayMode: false,
       };
