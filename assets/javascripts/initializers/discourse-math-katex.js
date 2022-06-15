@@ -11,9 +11,9 @@ function ensureKaTeX() {
   });
 }
 
-function decorate(elem, macros) {
+function decorate(elem, katexOpts) {
   const $elem = $(elem);
-  const displayMode = elem.tagName === "DIV";
+  katexOpts["displayMode"] = elem.tagName === "DIV";
 
   if ($elem.data("applied-katex")) {
     return;
@@ -25,7 +25,7 @@ function decorate(elem, macros) {
     const displayClass = tag === "div" ? "block-math" : "inline-math";
     const text = $elem.text();
     $elem.addClass(`math-container ${displayClass} katex-math`).text("");
-    window.katex.render(text, elem, { displayMode, macros });
+    window.katex.render(text, elem, katexOpts);
   }
 }
 
@@ -38,9 +38,19 @@ function katex($elem) {
 
   if (mathElems.length > 0) {
     ensureKaTeX().then(() => {
-      // enable persistent macros: https://katex.org/docs/api.html#persistent-macros
-      const macros = {};
-      mathElems.each((idx, elem) => decorate(elem, macros));
+      // enable persistent macros with are disabled by default: https://katex.org/docs/api.html#persistent-macros
+      // also enable equation labelling and referencing which are disabled by default
+      // both of these are enabled in mathjax by default, so now the katex implementation is (more) mathjax compatible
+      const katexOpts = {
+        trust: (context) => ["\\htmlId", "\\href"].includes(context.command),
+        macros: {
+          "\\eqref": "\\href{###1}{(\\text{#1})}",
+          "\\ref": "\\href{###1}{\\text{#1}}",
+          "\\label": "\\htmlId{#1}{}",
+        },
+        displayMode: false,
+      };
+      mathElems.each((idx, elem) => decorate(elem, katexOpts));
     });
   }
 }
