@@ -7,6 +7,8 @@ function ensureKaTeX() {
       css: true,
     }).then(() => {
       return loadScript("/plugins/discourse-math/katex/mhchem.min.js");
+    }).then(() => {
+      return loadScript("/plugins/discourse-math/katex/copy-tex.min.js");
     });
   });
 }
