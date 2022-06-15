@@ -5,11 +5,13 @@ function ensureKaTeX() {
   return loadScript("/plugins/discourse-math/katex/katex.min.js").then(() => {
     return loadScript("/plugins/discourse-math/katex/katex.min.css", {
       css: true,
-    }).then(() => {
-      return loadScript("/plugins/discourse-math/katex/mhchem.min.js");
-    }).then(() => {
-      return loadScript("/plugins/discourse-math/katex/copy-tex.min.js");
-    });
+    })
+      .then(() => {
+        return loadScript("/plugins/discourse-math/katex/mhchem.min.js");
+      })
+      .then(() => {
+        return loadScript("/plugins/discourse-math/katex/copy-tex.min.js");
+      });
   });
 }
 
