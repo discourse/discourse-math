@@ -1,6 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { getURLWithCDN } from "discourse-common/lib/get-url";
 import loadScript from "discourse/lib/load-script";
+import { later } from "@ember/runloop";
 
 let initializedMathJax = false;
 
@@ -78,7 +79,7 @@ function decorate(elem, isPreview) {
     $elem.after($mathWrapper);
   }
 
-  Ember.run.later(
+  later(
     this,
     () => {
       window.MathJax.Hub.Queue(() => {
