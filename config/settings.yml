@@ -3,7 +3,7 @@ plugins:
     default: false
     client: true
   discourse_math_provider:
-    default: 'mathjax'
+    default: "mathjax"
     client: true
     type: enum
     choices:
