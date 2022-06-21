@@ -6,4 +6,4 @@
 
 hu:
   site_settings:
-    discourse_math_enabled: 'Discourse Math plugin engedélyezése(speciális feldolgozást ad hozzá a $ és $$ blokkokhoz)'
+    discourse_math_enabled: "Discourse Math plugin engedélyezése(speciális feldolgozást ad hozzá a $ és $$ blokkokhoz)"
