@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe PrettyText do
 
-  context 'markdown it' do
+  context 'with discourse math' do
     before do
       SiteSetting.discourse_math_enabled = true
     end
