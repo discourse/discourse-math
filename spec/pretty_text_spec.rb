@@ -1,21 +1,18 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe PrettyText do
+  context "with discourse math" do
+    before { SiteSetting.discourse_math_enabled = true }
 
-  context 'with discourse math' do
-    before do
-      SiteSetting.discourse_math_enabled = true
-    end
-
-    it 'can handle inline math' do
+    it "can handle inline math" do
       cooked = PrettyText.cook('I like $\{a,b\}\$<a>$ etc')
       html = '<p>I like <span class="math">\{a,b\}\$&lt;a&gt;</span> etc</p>'
       expect(cooked).to eq(html)
     end
 
-    it 'can correctly ignore bad blocks' do
+    it "can correctly ignore bad blocks" do
       cooked = PrettyText.cook <<~MD
         $$a
         a
@@ -31,17 +28,17 @@ describe PrettyText do
       expect(cooked).to eq(html.strip)
     end
 
-    it 'can handle inline edge cases' do
-      expect(PrettyText.cook ",$+500\\$").not_to include('math')
-      expect(PrettyText.cook "$+500$").to include('math')
-      expect(PrettyText.cook ",$+500$,").to include('math')
-      expect(PrettyText.cook "200$ + 500$").not_to include('math')
-      expect(PrettyText.cook ",$+500$x").not_to include('math')
-      expect(PrettyText.cook "y$+500$").not_to include('math')
-      expect(PrettyText.cook "($ +500 $)").to include('math')
+    it "can handle inline edge cases" do
+      expect(PrettyText.cook ",$+500\\$").not_to include("math")
+      expect(PrettyText.cook "$+500$").to include("math")
+      expect(PrettyText.cook ",$+500$,").to include("math")
+      expect(PrettyText.cook "200$ + 500$").not_to include("math")
+      expect(PrettyText.cook ",$+500$x").not_to include("math")
+      expect(PrettyText.cook "y$+500$").not_to include("math")
+      expect(PrettyText.cook "($ +500 $)").to include("math")
     end
 
-    it 'can handle inline math' do
+    it "can handle inline math" do
       cooked = PrettyText.cook <<~MD
         I like
         $$
