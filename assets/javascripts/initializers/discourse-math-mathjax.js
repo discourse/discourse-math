@@ -10,7 +10,7 @@ function initMathJax(opts) {
     return;
   }
 
-  let extensions = ["toMathML.js", "Safe.js"];
+  const extensions = ["toMathML.js", "Safe.js"];
 
   if (opts.enable_accessibility) {
     extensions.push("[a11y]/accessibility-menu.js");
@@ -38,56 +38,47 @@ function ensureMathJax(opts) {
 }
 
 function decorate(elem, isPreview) {
-  const $elem = $(elem);
-
-  if ($elem.data("applied-mathjax")) {
+  if (elem.dataset.appliedMathjax) {
     return;
   }
-  $elem.data("applied-mathjax", true);
 
-  let $mathWrapper, $math;
+  elem.dataset.appliedMathjax = true;
 
-  if ($elem.hasClass("math")) {
-    const tag = elem.tagName === "DIV" ? "div" : "span";
+  let tag, classList, type;
+
+  if (elem.classList.contains("math")) {
+    tag = elem.tagName === "DIV" ? "div" : "span";
     const display = tag === "div" ? "; mode=display" : "";
     const displayClass = tag === "div" ? "block-math" : "inline-math";
-    const type = `math/tex${display}`;
-    const classList = `math-container ${displayClass} mathjax-math`;
-
-    $mathWrapper = $(
-      `<${tag} class="${classList}" style="display: none;">
-         <script type="${type}"></script>
-       </${tag}>`
-    );
-
-    $math = $mathWrapper.children();
-    $math.text($elem.text());
-    $elem.after($mathWrapper);
-  } else if ($elem.hasClass("asciimath")) {
-    // asciimath is always inline
-    const classList = `math-container inline-math ascii-math`;
-    const type = `math/asciimath`;
-
-    $mathWrapper = $(
-      `<span class="${classList}" style="display: none;">
-         <script type="${type}"></script>
-       </span>`
-    );
-
-    $math = $mathWrapper.children();
-    $math.text($elem.text());
-    $elem.after($mathWrapper);
+    type = `math/tex${display}`;
+    classList = `math-container ${displayClass} mathjax-math`;
+  } else if (elem.classList.contains("asciimath")) {
+    tag = "span";
+    classList = "math-container inline-math ascii-math";
+    type = "math/asciimath";
   }
+
+  const mathScript = document.createElement("script");
+  mathScript.type = type;
+  mathScript.innerText = elem.innerText;
+
+  const mathWrapper = document.createElement(tag);
+  mathWrapper.classList.add(classList.split(" "));
+  mathWrapper.style.display = "none";
+
+  mathWrapper.appendChild(mathScript);
+
+  elem.after(mathWrapper);
 
   later(
     this,
     () => {
       window.MathJax.Hub.Queue(() => {
         // don't bother processing previews removed from DOM
-        if (elem.parentElement && elem.parentElement.offsetParent !== null) {
-          window.MathJax.Hub.Typeset($math[0], () => {
-            $elem.hide();
-            $mathWrapper.show();
+        if (elem?.parentElement?.offsetParent !== null) {
+          window.MathJax.Hub.Typeset(mathScript, () => {
+            elem.style.display = "none";
+            mathWrapper.style.display = "block";
           });
         }
       });
@@ -96,33 +87,42 @@ function decorate(elem, isPreview) {
   );
 }
 
-function mathjax($elem, opts) {
-  if (!$elem || !$elem.find) {
+function mathjax(elem, opts) {
+  if (!elem) {
     return;
   }
 
   let mathElems;
   if (opts.enable_asciimath) {
-    mathElems = $elem.find(".math, .asciimath");
+    mathElems = elem.querySelectorAll(".math, .asciimath");
   } else {
-    mathElems = $elem.find(".math");
+    mathElems = elem.querySelectorAll(".math");
   }
 
   if (mathElems.length > 0) {
-    const isPreview = $elem.hasClass("d-editor-preview");
+    const isPreview = elem.classList.contains("d-editor-preview");
 
     ensureMathJax(opts).then(() => {
-      mathElems.each((idx, elem) => decorate(elem, isPreview));
+      mathElems.forEach((mathElem) => decorate(mathElem, isPreview));
     });
   }
 }
 
-function initializeMath(api, discourse_math_opts) {
-  api.decorateCooked(
-    function (elem) {
-      mathjax(elem, discourse_math_opts);
+function initializeMath(api, discourseMathOptions) {
+  api.decorateCookedElement(
+    (element) => {
+      mathjax(element, discourseMathOptions);
     },
     { id: "mathjax" }
+  );
+
+  api.decorateChatMessage(
+    (element) => {
+      mathjax(element, discourseMathOptions);
+    },
+    {
+      id: "mathjax-chat",
+    }
   );
 }
 
