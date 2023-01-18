@@ -116,14 +116,16 @@ function initializeMath(api, discourseMathOptions) {
     { id: "mathjax" }
   );
 
-  api.decorateChatMessage(
-    (element) => {
-      mathjax(element, discourseMathOptions);
-    },
-    {
-      id: "mathjax-chat",
-    }
-  );
+  if (api.decorateChatMessage) {
+    api.decorateChatMessage(
+      (element) => {
+        mathjax(element, discourseMathOptions);
+      },
+      {
+        id: "mathjax-chat",
+      }
+    );
+  }
 }
 
 export default {
