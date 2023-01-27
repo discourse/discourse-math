@@ -78,7 +78,7 @@ function decorate(elem, isPreview) {
         if (elem?.parentElement?.offsetParent !== null) {
           window.MathJax.Hub.Typeset(mathScript, () => {
             elem.style.display = "none";
-            mathWrapper.style.display = "block";
+            mathWrapper.style.display = null;
           });
         }
       });
