@@ -13,5 +13,9 @@ register_asset "stylesheets/ext/discourse-chat.scss"
 enabled_site_setting :discourse_math_enabled
 
 after_initialize do
-  chat&.enable_markdown_feature("discourse-math") if respond_to?(:chat) && SiteSetting.chat_enabled
+  if respond_to?(:chat) && SiteSetting.chat_enabled
+    chat&.enable_markdown_feature("discourse-math")
+    chat&.enable_markdown_feature("math")
+    chat&.enable_markdown_feature("asciimath") if SiteSetting.discourse_math_enable_asciimath
+  end
 end
