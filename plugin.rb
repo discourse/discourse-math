@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # name: discourse-math
-# about: Official mathjax plugin for Discourse
+# about: Uses MathJax 203 or KaTeX 97 to render math expressions. 
+# meta_topic_id: 65770
 # version: 0.9
 # authors: Sam Saffron (sam)
 # url: https://github.com/discourse/discourse-math
