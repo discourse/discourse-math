@@ -1,5 +1,6 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
+import $ from "jquery";
 import loadScript from "discourse/lib/load-script";
+import { withPluginApi } from "discourse/lib/plugin-api";
 
 function ensureKaTeX() {
   return loadScript("/plugins/discourse-math/katex/katex.min.js").then(() => {
@@ -71,7 +72,7 @@ function initializeMath(api) {
 export default {
   name: "apply-math-katex",
   initialize(container) {
-    const siteSettings = container.lookup("site-settings:main");
+    const siteSettings = container.lookup("service:site-settings");
     if (
       siteSettings.discourse_math_enabled &&
       siteSettings.discourse_math_provider === "katex"

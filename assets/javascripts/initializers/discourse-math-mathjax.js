@@ -1,7 +1,7 @@
+import { later } from "@ember/runloop";
+import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { getURLWithCDN } from "discourse-common/lib/get-url";
-import loadScript from "discourse/lib/load-script";
-import { later } from "@ember/runloop";
 
 let initializedMathJax = false;
 
@@ -131,7 +131,7 @@ function initializeMath(api, discourseMathOptions) {
 export default {
   name: "apply-math-mathjax",
   initialize(container) {
-    const siteSettings = container.lookup("site-settings:main");
+    const siteSettings = container.lookup("service:site-settings");
     let discourse_math_opts = {
       zoom_on_hover: siteSettings.discourse_math_zoom_on_hover,
       enable_accessibility: siteSettings.discourse_math_enable_accessibility,
