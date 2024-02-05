@@ -21,6 +21,7 @@ function initMathJax(opts) {
     TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "autoload-all.js"] },
     extensions,
     showProcessingMessages: false,
+    messageStyle: "none",
     root: getURLWithCDN("/plugins/discourse-math/mathjax"),
   };
 
