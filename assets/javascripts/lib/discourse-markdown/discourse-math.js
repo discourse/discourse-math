@@ -3,6 +3,28 @@
 //
 //
 
+const additionalPunctuation = [
+  // Chinese and Japanese punctuation
+  0x3001, // 、
+  0x3002, // 。
+
+  // Full-width punctuation used in East Asian languages
+  0xff0c, // ，
+  0xff1a, // ：
+  0xff1b, // ；
+  0xff0e, // ．
+  0xff1f, // ？
+  0xff01, // ！
+
+  // Arabic punctuation
+  0x060c, // ،
+  0x061b, // ؛
+  0x061f, // ؟
+
+  // Thai punctuation
+  0x0e2f, // ฯ
+];
+
 function isSafeBoundary(character_code, delimiter_code, md) {
   if (character_code === delimiter_code) {
     return false;
@@ -17,6 +39,10 @@ function isSafeBoundary(character_code, delimiter_code, md) {
   }
 
   if (md.utils.isPunctChar(character_code)) {
+    return true;
+  }
+
+  if (additionalPunctuation.includes(character_code)) {
     return true;
   }
 

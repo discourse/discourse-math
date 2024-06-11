@@ -38,6 +38,30 @@ describe PrettyText do
       expect(PrettyText.cook "($ +500 $)").to include("math")
     end
 
+    it "can handle inline math with Chinese punctuation" do
+      cooked = PrettyText.cook("这是一个测试，$a^2 + b^2 = c^2$，这是另一个测试。")
+      html = '<p>这是一个测试，<span class="math">a^2 + b^2 = c^2</span>，这是另一个测试。</p>'
+      expect(cooked).to eq(html)
+    end
+
+    it "can handle inline math with Japanese punctuation" do
+      cooked = PrettyText.cook("これはテストです、$a^2 + b^2 = c^2$、これもテストです。")
+      html = '<p>これはテストです、<span class="math">a^2 + b^2 = c^2</span>、これもテストです。</p>'
+      expect(cooked).to eq(html)
+    end
+
+    it "can handle inline math with Arabic punctuation" do
+      cooked = PrettyText.cook("هذا اختبار،$a^2 + b^2 = c^2$،هذا اختبار آخر.")
+      html = '<p>هذا اختبار،<span class="math">a^2 + b^2 = c^2</span>،هذا اختبار آخر.</p>'
+      expect(cooked).to eq(html)
+    end
+
+    it "can handle block math with Chinese punctuation" do
+      cooked = PrettyText.cook("$$\na^2 + b^2 = c^2\n$$")
+      html = "<div class=\"math\">\na^2 + b^2 = c^2\n</div>"
+      expect(cooked.strip).to eq(html.strip)
+    end
+
     it "can handle inline math" do
       cooked = PrettyText.cook <<~MD
         I like
