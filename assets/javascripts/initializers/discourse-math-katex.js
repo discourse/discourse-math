@@ -2,12 +2,16 @@ import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 async function ensureKaTeX() {
-  await loadScript("/plugins/discourse-math/katex/katex.min.js");
-  await loadScript("/plugins/discourse-math/katex/katex.min.css", {
-    css: true,
-  });
-  await loadScript("/plugins/discourse-math/katex/mhchem.min.js");
-  await loadScript("/plugins/discourse-math/katex/copy-tex.min.js");
+  try {
+    await loadScript("/plugins/discourse-math/katex/katex.min.js");
+    await loadScript("/plugins/discourse-math/katex/katex.min.css", {
+      css: true,
+    });
+    await loadScript("/plugins/discourse-math/katex/mhchem.min.js");
+    await loadScript("/plugins/discourse-math/katex/copy-tex.min.js");
+  } catch (e) {
+    console.error("Failed to load KaTeX dependencies.", e);
+  }
 }
 
 function decorate(elem, katexOpts) {
