@@ -10,6 +10,7 @@ async function ensureKaTeX() {
     await loadScript("/plugins/discourse-math/katex/mhchem.min.js");
     await loadScript("/plugins/discourse-math/katex/copy-tex.min.js");
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error("Failed to load KaTeX dependencies.", e);
   }
 }
