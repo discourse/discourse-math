@@ -1,7 +1,7 @@
 import { later } from "@ember/runloop";
+import { getURLWithCDN } from "discourse/lib/get-url";
 import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { getURLWithCDN } from "discourse-common/lib/get-url";
 
 let initializedMathJax = false;
 
