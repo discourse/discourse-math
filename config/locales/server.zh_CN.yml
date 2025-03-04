@@ -1,10 +1,4 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
-zh_CN:
+zh-CN:
   site_settings:
     discourse_math_enabled: "启用 Discourse Math 插件（将对 $ 和 $$ 进行特殊处理）"
     discourse_math_provider: "默认数学呈现提供程序"
