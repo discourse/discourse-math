@@ -39,7 +39,7 @@
       .mobile-view & {
         position: relative;
 
-        &:before {
+        &::before {
           content: "";
           position: absolute;
           z-index: 1;
@@ -53,7 +53,8 @@
             rgba(var(--secondary-rgb), 0) 100%
           );
         }
-        &:after {
+
+        &::after {
           content: "";
           position: absolute;
           z-index: 1;
