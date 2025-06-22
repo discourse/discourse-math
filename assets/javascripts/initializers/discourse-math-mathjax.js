@@ -1,4 +1,4 @@
-import { later } from "@ember/runloop";
+import { next, later } from "@ember/runloop";
 import { getURLWithCDN } from "discourse/lib/get-url";
 import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
@@ -112,7 +112,9 @@ function mathjax(elem, opts) {
 function initializeMath(api, discourseMathOptions) {
   api.decorateCookedElement(
     (element) => {
-      mathjax(element, discourseMathOptions);
+      next(() => {
+        mathjax(element, discourseMathOptions);
+      });
     },
     { id: "mathjax" }
   );
