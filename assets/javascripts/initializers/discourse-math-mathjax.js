@@ -61,7 +61,7 @@ function decorate(elem, isPreview) {
 
   const mathScript = document.createElement("script");
   mathScript.type = type;
-  mathScript.innerText = elem.innerText;
+  mathScript.innerText = elem.textContent;
 
   const mathWrapper = document.createElement(tag);
   mathWrapper.classList.add(classList.split(" "));
